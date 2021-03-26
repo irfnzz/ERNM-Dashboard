@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "baseUrl": "src",
+    "paths": {
+      "pages": ["client/pages"],
+      "pages/*": ["client/pages/*"],
+      "components": ["client/components"],
+      "components/*": ["client/components/*"],
+      "assets/*": ["client/assets/*"],
+      "utils": ["utils"],
+      "utils/*": ["utils/*"],
+      "types": ["types"],
+      "types/*": ["types/*"],
+      "models": ["models"],
+      "models/*": ["models/*"],
+      "store": ["store"],
+      "store/*": ["store/*"]
+    }
+  },
+  "include": ["src"]
+}

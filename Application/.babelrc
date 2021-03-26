@@ -1,0 +1,31 @@
+{
+  "presets": ["@babel/env", "@babel/react", "@babel/flow"],
+  "plugins": [
+    "@babel/syntax-dynamic-import",
+    "@babel/transform-runtime",
+    [
+      "@babel/transform-spread",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/proposal-optional-chaining",
+    "react-hot-loader/babel",
+    "@loadable/babel-plugin",
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "pages": "./src/client/pages",
+          "components": "./src/client/components",
+          "assets": "./src/client/assets",
+          "utils": "./src/utils",
+          "types": "./src/types",
+          "models": "./src/models",
+          "store": "./src/store"
+        }
+      }
+    ]
+  ]
+}
