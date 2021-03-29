@@ -11,7 +11,7 @@ const Mainmenu = () => {
     <div id="App">
             <Topnav/>
             <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} />
-
+<Topnav/>
       <div id="page-wrap" className='container-fluid'>
         <ls>
         <h1> Subject To change as it is not perfect🍔🍕
