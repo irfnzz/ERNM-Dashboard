@@ -1,0 +1,125 @@
+@import 'themes/global';
+
+.post {
+  &__item {
+    margin-bottom: 8px;
+
+    .mde-preview {
+      background: var(--primary__background);
+      color: var(--secondary__text);
+    }
+  }
+
+  &__title {
+    color: $celestial__blue;
+  }
+
+  &__description {
+    margin-bottom: 12px;
+  }
+}
+
+.tag {
+  &__group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  &__item {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #888;
+    border-radius: 4px;
+    padding: 0 4px;
+    background: #eee;
+    color: #888;
+  }
+}
+
+.comment {
+  &__container {
+    display: block;
+  }
+
+  &__login {
+    margin-bottom: 12px;
+    background: var(--primary__background);
+    border-color: var(--secondary__text);
+
+    a {
+      color: var(--secondary__text);
+
+      &:hover {
+        color: var(--primary__text);
+      }
+    }
+  }
+
+  &__submit {
+    margin: 24px 0;
+  }
+
+  &__item {
+    margin-bottom: 12px;
+    background: var(--primary__background);
+    border-color: var(--secondary__text);
+
+    .mde-preview {
+      background: var(--primary__background);
+      color: var(--secondary__text);
+    }
+  }
+}
+
+.mde-text {
+  color: #495057;
+}
+
+.pagination {
+  margin: 8px 0;
+  justify-content: center;
+
+  li {
+    border: 2px solid var(--secondary__text);
+    border-radius: 4px;
+    margin: 4px;
+    font-size: larger;
+    min-width: 38px;
+    min-height: 38px;
+    line-height: 19px;
+    justify-content: center;
+    display: flex;
+
+    a {
+      color: var(--secondary__text);
+      cursor: pointer;
+      padding: 8px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &.active {
+      border: 2px solid var(--primary__text);
+
+      a {
+        color: var(--primary__text);
+      }
+    }
+
+    &.break {
+      pointer-events: none;
+      cursor: none;
+      border-color: var(--secondary__text);
+
+      a {
+        color: var(--secondary__text);
+      }
+    }
+  }
+}

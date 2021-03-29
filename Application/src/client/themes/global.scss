@@ -1,0 +1,63 @@
+@import './variables.scss';
+
+html {
+  --primary__background: #{$ghost__white};
+
+  --primary__text: #{$celestial__blue};
+
+  --secondary__text: #{$arsenic};
+}
+
+html[theme='dark'] {
+  --primary__background: #{$raisin__black};
+
+  --primary__text: #{$celestial__blue};
+
+  --secondary__text: #{$silver__sand};
+}
+
+body {
+  background: var(--primary__background);
+
+  color: var(--secondary__text);
+
+  .btn-primary {
+    background: #{$celestial__blue};
+
+    border-color: #{$celestial__blue};
+
+    outline: none;
+
+    &:hover {
+      background: #{$steel__blue};
+
+      border-color: #{$steel__blue};
+    }
+
+    &:focus,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus {
+      background: #{$steel__blue};
+
+      border-color: #{$steel__blue};
+
+      box-shadow: 0 0 0 0.2rem #{$steel__blue};
+    }
+  }
+
+  a:hover {
+    color: #{$steel__blue};
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .mde-preview {
+    .mde-preview-content {
+      a {
+        margin: 0 0.2rem;
+      }
+    }
+  }
+}
