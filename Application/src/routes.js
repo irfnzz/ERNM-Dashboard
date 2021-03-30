@@ -12,7 +12,6 @@ import CreatePost from 'pages/Post/CreatePost';
 import Introduce from 'pages/Introduce';
 import Projects from 'pages/Introduce/Projects';
 import Contact from 'pages/Contact';
-import Mainmenu from 'pages/Main';
 import NotFound from 'pages/NotFound';
 import Datatables from 'pages/Datatables';
 import App from './client/app';
@@ -56,11 +55,6 @@ export default [
         path: '/forgotPasswordrequest',
         component: ForgotPasswordRequest,
         title: 'Forgot Password Request',
-      },
-      {
-        path: '/mainmenu',
-        component: Mainmenu,
-        title: 'Main Menu',
       },
       {
         path: '/introduce/projects',

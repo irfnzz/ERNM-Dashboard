@@ -8,7 +8,7 @@ import {
 } from 'react-router-last-location';
 import Switch from 'react-switch';
 import { Collapse } from 'reactstrap';
-
+import Topnav from './Nav/navbar.js'
 import PropTypes from 'prop-types';
 import * as globalAction from 'store/action';
 import './styles.scss';
@@ -32,8 +32,9 @@ const Child = ({
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
-    <>
+    <div>
       <Helmet title={title} />
+      
       <div className='container'>
         <div className='row main__container'>
           {showSidebar && (
@@ -194,6 +195,7 @@ const Child = ({
                 </div>
               </Collapse>
             </div>
+           
           )}
 
           <div className={`${showSidebar ? 'col-lg-9 col-12' : 'col-12'}`}>
@@ -201,7 +203,7 @@ const Child = ({
           </div>
         </div>
       </div>
-    </>
+      </div>
   );
 };
 
