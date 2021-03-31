@@ -12,27 +12,21 @@ const db = mysql.createConnection({
   password: "admin",
   database: "testdb",
 });
- 
-//route name: create
-//post from front end to back end
-app.post("/create", (req, res) => {
-  const email = req.body.email;
-  const pass = req.body.password;
- 
-  db.query(
-    "INSERT INTO users (email, pass) VALUES (?,?)",
-    [email, pass], //put in array
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send("Values Inserted");
-      }
+
+
+app.post("/insert", (req, res) => {
+  const insertQuery = "INSERT INTO users SET ?";
+  db.query(insertQuery, req.body, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send("Added to Database");
     }
-  );
+  });
 });
+
  
-app.get("/users", (req, res) => {
+app.get("/select", (req, res) => {
   db.query("SELECT * FROM users", (err, result) => {
     if (err) {
       console.log(err);
@@ -41,13 +35,13 @@ app.get("/users", (req, res) => {
     }
   });
 });
- 
+
 app.put("/update", (req, res) => {
-  const id = req.body.id;
-  const wage = req.body.wage;
+  const updateQuery =
+    "UPDATE users SET email = ?, pass = ? WHERE id = ?";
   db.query(
-    "UPDATE employees SET wage = ? WHERE id = ?",
-    [wage, id],
+    updateQuery,
+    [req.body.email, req.body.pass, req.body.id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -57,18 +51,22 @@ app.put("/update", (req, res) => {
     }
   );
 });
- 
+
 app.delete("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  db.query("DELETE FROM employees WHERE id = ?", id, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
+  db.query(
+    "DELETE FROM users WHERE id = ?",
+    req.params.id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
- 
+
+
 app.listen(3003, () => {
   console.log("Yey, your server is running on port 3003");
 });
