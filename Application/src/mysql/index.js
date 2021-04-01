@@ -2,10 +2,13 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+const status = require ('http-status');
+const redis = require('redis');
 
 app.use(cors());
 app.use(express.json()); //convert from json
 
+// configure database
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
@@ -13,29 +16,48 @@ const db = mysql.createConnection({
   database: 'testdb',
 });
 
-var table = 'users';
+// declare table
+const tableName = 'users';
 
-const postSQL = {
-  type: 'INSERT INTO ' + table + ' SET ?',
-  msj: 'Added to Database',
-};
+// define the query
+const displayTableQuery = '';
+const addQuery = 'INSERT INTO ' + tableName + ' set ?';
+const deleteQuery = 'DELETE FROM ' + tableName + ' WHERE id = ?';
+const updatePasswordQuery =
+  'UPDATE ' + tableName + ' SET pass = ? WHERE email = ?';
 
-
-function sqlQuery(db, postSQL,req, res) {
-  db.query(postSQL.type, req.body, (err, result) => {
-    if (err) {
-      res.send(err);
+// declare function
+function getQuery(db, sqlQuery, res) {
+  db.query(sqlQuery, (err, result) => {
+    if (err.sqlState = 42000) {
+      res.send("Syntax error");
     } else {
-      res.send(postSQL.msj);
+      res.send(result);
     }
   });
 }
 
-app.post('/reviews', (req, res) => {
-  sqlQuery(db, postSQL, req, res);
+// call function
+app.get('/', (req, res) => {
+  getQuery(db, displayTableQuery, res);
 });
 
+app.post('/', (req, res) => {
+  const par = req.body;
+  setQuery(db, addQuery, par, res);
+});
 
-app.listen(3003, () => {
-  console.log('Yey, your server is running on port 3003');
+app.delete('/:id', (req, res) => {
+  const par = req.params.id;
+  setQuery(db, deleteQuery, par, res);
+});
+
+app.put('/', (req, res) => {
+  const par = [req.body.pass, req.body.email];
+  setQuery(db, updatePasswordQuery, par, res);
+});
+
+// configure server port number
+const listener = app.listen(process.env.PORT || 3332, () => {
+  console.log('App is listening on port ' + listener.address().port);
 });
