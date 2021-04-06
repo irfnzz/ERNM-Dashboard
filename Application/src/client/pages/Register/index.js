@@ -4,36 +4,32 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { useState } from "react";
 import Axios from "axios"; //make request thru api
+import { Redirect, Link } from "react-router-dom";
  
 import Layout from 'components/Layout';
- 
 import * as action from './action';
  
-let Register = () => {
- 
+let Register = ({
+  registerAction,
+  route: {title},
+}) => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
   const [userList, setUserList] = useState([]);
   
   const addUser = () => {
-    Axios.post("http://localhost:3003/create", {
+    Axios.post("http://localhost:3333/", {
       email: email,
-      password: password,
+      pass: password,
     }).then(() => {
-      console.log("success");
-      setUserList([
-        ...userList,
-        {
-          email: email,
-          password: password,
-        },
-      ]);
+      alert("success");
+      // <Link to= "/Login" />
     });
   };
  
   return (
-    <Layout title="Register"  showSidebar={false} needLogin={false}>
+    <Layout title={title} showSidebar={false} needLogin={false}>
       <h1 className='text-center'>Register</h1>
  
       <div className='row'>

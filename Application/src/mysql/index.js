@@ -12,7 +12,7 @@ app.use(express.json()); //convert from json
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: 'admin',
+  password: 'password',
   database: 'testdb',
 });
 
@@ -32,6 +32,16 @@ function getQuery(db, sqlQuery, res) {
     if (err.sqlState = 42000) {
       res.send("Syntax error");
     } else {
+      res.send(getSQL.msj);
+    }
+  });
+}
+
+function setQuery(db, sqlQuery, par, res) {
+  db.query(sqlQuery, par, (err, result) => {
+    if (err) {
+      res.send(err.sqlMessage);
+    } else {
       res.send(result);
     }
   });
@@ -43,8 +53,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
+  const RegisterUserQuery = "INSERT INTO users set ?";
   const par = req.body;
-  setQuery(db, addQuery, par, res);
+  setQuery(db, RegisterUserQuery, par, res);
 });
 
 app.delete('/:id', (req, res) => {
@@ -58,6 +69,6 @@ app.put('/', (req, res) => {
 });
 
 // configure server port number
-const listener = app.listen(process.env.PORT || 3332, () => {
+const listener = app.listen(process.env.PORT || 3333, () => {
   console.log('App is listening on port ' + listener.address().port);
 });
