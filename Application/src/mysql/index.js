@@ -2,37 +2,35 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-const status = require ('http-status');
-const redis = require('redis');
+const { response } = require('express');
 
 app.use(cors());
 app.use(express.json()); //convert from json
 
-// configure database
+// configure database 
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: 'password',
+  password: 'admin',
   database: 'testdb',
 });
 
-// declare table
+// declare table 
 const tableName = 'users';
 
 // define the query
-const displayTableQuery = '';
-const addQuery = 'INSERT INTO ' + tableName + ' set ?';
-const deleteQuery = 'DELETE FROM ' + tableName + ' WHERE id = ?';
-const updatePasswordQuery =
-  'UPDATE ' + tableName + ' SET pass = ? WHERE email = ?';
+const displayTableQuery = "SELECT * FROM users";
+const addQuery = "INSERT INTO " + tableName + " set ?";
+const deleteQuery = "DELETE FROM "+ tableName + " WHERE id = ?";
+const updatePasswordQuery = "UPDATE "+ tableName + " SET pass = ? WHERE email = ?";
 
 // declare function
 function getQuery(db, sqlQuery, res) {
   db.query(sqlQuery, (err, result) => {
-    if (err.sqlState = 42000) {
-      res.send("Syntax error");
+    if (err) {
+      res.send(err.sqlMessage);
     } else {
-      res.send(getSQL.msj);
+      res.send(result);
     }
   });
 }
@@ -47,28 +45,48 @@ function setQuery(db, sqlQuery, par, res) {
   });
 }
 
+
 // call function
-app.get('/', (req, res) => {
-  getQuery(db, displayTableQuery, res);
+app.get("/", (req, res) => {
+  getQuery(db, displayTableQuery, res)
 });
 
-app.post('/', (req, res) => {
-  const RegisterUserQuery = "INSERT INTO users set ?";
+app.post("/", (req, res) => {
   const par = req.body;
-  setQuery(db, RegisterUserQuery, par, res);
+  setQuery(db, addQuery, par, res)
 });
 
-app.delete('/:id', (req, res) => {
+app.delete("/:id", (req, res) => {
   const par = req.params.id;
-  setQuery(db, deleteQuery, par, res);
+  setQuery(db, deleteQuery, par, res)
 });
 
-app.put('/', (req, res) => {
-  const par = [req.body.pass, req.body.email];
-  setQuery(db, updatePasswordQuery, par, res);
+app.put("/", (req, res) => {
+  const par = [req.body.pass, req.body.email]
+  setQuery(db, updatePasswordQuery, par, res)
 });
+
+
+//error handling
+
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  error.status = 404;
+  next(error);
+});
+
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500).send({
+      error: {
+        status: error.status || 500,
+        message: error.message || 'Internal Server Error',
+      },
+    });
+  });
+
 
 // configure server port number
 const listener = app.listen(process.env.PORT || 3333, () => {
-  console.log('App is listening on port ' + listener.address().port);
-});
+  console.log('App is listening on port ' + listener.address().port)
+})

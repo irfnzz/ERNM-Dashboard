@@ -16,6 +16,12 @@ export default props => {
       <a className="menu-item" href="/Register">
         Register
       </a>
+
+      <a className="menu-item" href="/UserView">
+        User Application View
+      </a>
+
+      
     </Menu>
   );
 };

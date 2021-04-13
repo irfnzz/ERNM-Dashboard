@@ -27,7 +27,7 @@ const Topnav = () => {
             </Button>
           </Form>
           <NavDropdown alignRight  title='Profile' id='collasible-nav-dropdown'>
-            <NavDropdown.Item href='#action/3.1'>Profile</NavDropdown.Item>
+            <NavDropdown.Item href='/UserProfile'>Profile</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>
               Account Setting
             </NavDropdown.Item>

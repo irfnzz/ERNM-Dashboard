@@ -54,7 +54,7 @@ let Login = ({ handleSubmit, loginAction, route: { title } }) => {
                 className='form-control'
               />
               <p className='forgot-password text-right'>
-                <a href='/forgotPasswordrequest'>Forgot your password? </a>
+                <a href='/forgotpasswordrequest'>Forgot your password? </a>
               </p>
 
             </div>

@@ -24,5 +24,10 @@ export default {
   module: {
     rules: getRules(),
   },
+  node: {fs: 'empty'},
+externals: [
+    {'./cptable': 'var cptable'},
+    {'./jszip': 'jszip'}
+ ],
   ...getResolver(),
 };
